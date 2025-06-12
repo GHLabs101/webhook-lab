@@ -1,0 +1,16 @@
+name: External Build Trigger
+
+on:
+  repository_dispatch:
+    types: [external-build]   # listens only for this event_type
+
+jobs:
+  print-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show raw payload
+        run: |
+          echo "🔔 Dispatch event triggered"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Full payload:"
+          echo '${{ toJSON(github.event.client_payload) }}'
